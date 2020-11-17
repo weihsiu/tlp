@@ -22,11 +22,12 @@ marp: true
 - Firsts.scala
 - SKICalculus.scala
 - Nats.scala
+- Vects.scala
 
 ---
 # Agenda 2/2
-- Vects.scala
 - scala.Tuple
+- Tuples.scala
 - scala.compiletime
 - Math.scala
 - Sorts.scala
@@ -53,7 +54,7 @@ marp: true
 # Quick words on Scala types
 ```scala
 val one: 1 /* type */ = 1 // value
-val true: true /* type */ = true // value
+val trueV: true /* type */ = true // value
 val hello: "hello" /* type */ = "hello" //v value
 
 trait CelestialBody
@@ -118,6 +119,7 @@ trait Vect[N <: Nat, +A]
 
 ---
 # scala.Tuple
+- Scala 3 standard package
 - https://github.com/lampepfl/dotty/blob/master/library/src/scala/Tuple.scala
 - A tuple implemenation that gets rid of the 22-arity limit of Scala 2
 - Extensive use of type-level programming
@@ -129,7 +131,18 @@ assert(tuple1 == tuple2)
 ```
 
 ---
+# Tuples.scala
+```scala
+case class User(name: String, age: Int)
+val user1 = User("walter", 18)
+val userT = Tuple.fromProductTyped(user1)
+val user2 = User.tupled(userT)
+assert(user1 == user2)
+```
+
+---
 # scala.compiletime
+- Scala 3 standard package
 - A new package that has lots of type-level goodies
 - scala.compiletime.ops._
   - Int, Boolean and String singleton type operations in types
