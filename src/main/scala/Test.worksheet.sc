@@ -40,19 +40,16 @@ val poly0: [t] => t => String = [t] => (x: t) => x match
 
 type Switch[T] = T match
   case Int => String
-  case String => Long
-  case _ => T
+  case String => Int
 
 val poly1: [t] => t => Switch[t] = new PolyFunction:
   def apply[T](x: T): Switch[T] = x match
     case x: Int => x.toString
     case x: String => Integer.parseInt(x).toInt
-    case _ => x
 
-val poly2: [t] => t => Switch[t] = [t] => (x: t) => x match
+val poly2: [t] => t => Switch[t] = [T] => (x: T) => x match
     case x: Int => x.toString
     case x: String => Integer.parseInt(x).toInt
-    case _ => x
 
 poly1("123")
 poly1(123)
