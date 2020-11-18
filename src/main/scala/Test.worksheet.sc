@@ -47,12 +47,14 @@ val poly1: [t] => t => Switch[t] = new PolyFunction:
     case x: Int => x.toString
     case x: String => Integer.parseInt(x).toInt
 
-val poly2: [t] => t => Switch[t] = [T] => (x: T) => x match
-    case x: Int => x.toString
-    case x: String => Integer.parseInt(x).toInt
+// val poly2: [t] => t => Switch[t] = [T] => (x: T) => x match
+//     case x: Int => x.toString
+//     case x: String => Integer.parseInt(x).toInt
 
 poly1("123")
 poly1(123)
 
-poly(1)
-poly("df")
+// summon[Option[Int] == Option[Int] =:= false]
+
+val b1: 1.0 == 1.0 = true
+val b2: 1 == 2 = false

@@ -2,16 +2,18 @@
 marp: true
 ---
 # Type-Level Programming in Scala 3
+# (冒號右邊的神奇世界)
 ## 張瑋修 Walter Chang
 ### @weihsiu / weihsiu@gmail.com
 ![https://github.com/weihsiu/tlp](qrcode.png)
+https://github.com/weihsiu/tlp
 
 ---
+![Scala Taiwan Logo](scalataiwan.png)
 # Scala Taiwan
 ## [Scala Taiwan gitter channel](https://gitter.im/ScalaTaiwan/ScalaTaiwan)
 ## [Scala Taiwan FB group](https://www.facebook.com/groups/ScalaTW/)
 ## [Scala Taiwan meetup](https://www.meetup.com/Scala-Taiwan-Meetup/)
-![Scala Taiwan Logo](scalataiwan.png)
 
 ---
 # Agenda 1/2
@@ -48,7 +50,7 @@ marp: true
 - Runs during compilation, not runtime
 - Utilizes Scala's powerful type system
 - Catch coding error before execution
-- Put singleton types to good use
+- Singleton types FTW
 
 ---
 # Quick words on Scala types
@@ -70,7 +72,7 @@ val body2: CelestialBody /* type */ = mars // value
 
 ---
 # Match types
-- The foundation type-level programming construct
+- The foundation type-level programming construct of Scala 3
 - Acts like "function" with types as "arguments" and returning different types as result
 ```scala
 // from dotty doc
@@ -79,7 +81,8 @@ type Elem[X] = X match {
   case Array[t] => t
   case Iterable[t] => t
 }
-
+// abstract class =:=[From, To]
+// An instance of A =:= B witnesses that the types A and B are equal.
 summon[Elem[String] =:= Char]
 summon[Elem[Array[Int]] =:= Int]
 summon[Elem[List[Float]] =:= Float]
@@ -88,7 +91,7 @@ summon[Elem[Nil.type] =:= Nothing]
 
 ---
 # Firsts.scala
-- A function that returns first of everything
+- A function that returns first of anything
 - Integrates type-level and term-level definitions
 - A dependent-type function with a succinct implementation
 
@@ -113,6 +116,7 @@ summon[Elem[Nil.type] =:= Nothing]
   - map()
   - zip()
   - concat()
+  - Many more are possible
 ```scala
 trait Vect[N <: Nat, +A]
 ```
@@ -120,7 +124,6 @@ trait Vect[N <: Nat, +A]
 ---
 # scala.Tuple
 - Scala 3 standard package
-- https://github.com/lampepfl/dotty/blob/master/library/src/scala/Tuple.scala
 - A tuple implemenation that gets rid of the 22-arity limit of Scala 2
 - Extensive use of type-level programming
 - A lightweight Shapeless
@@ -128,17 +131,22 @@ trait Vect[N <: Nat, +A]
 val tuple1: (Int, Char, Boolean) = (1, 'a', true)
 val tuple2: Int *: Char *: Boolean *: EmptyTuple = (1, 'a', true)
 assert(tuple1 == tuple2)
-```
 
----
-# Tuples.scala
-```scala
 case class User(name: String, age: Int)
 val user1 = User("walter", 18)
 val userT = Tuple.fromProductTyped(user1)
 val user2 = User.tupled(userT)
 assert(user1 == user2)
 ```
+
+---
+# Tuples.scala
+- Operations on tuple
+  - map()
+  - flatMap()
+  - filter()
+  - fold()
+  - Many other
 
 ---
 # scala.compiletime
@@ -200,6 +208,7 @@ hm1[String]("age")
 # Q&A
 ## That's all and thank you for your attention
 ![https://github.com/weihsiu/tlp](qrcode.png)
+https://github.com/weihsiu/tlp
 
 
 

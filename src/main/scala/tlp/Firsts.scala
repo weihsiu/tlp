@@ -1,5 +1,7 @@
 package tlp
 
+import scala.annotation._
+
 object Firsts:
 
   type First[X] = X match
@@ -11,6 +13,7 @@ object Firsts:
     case x *: _ => First[Option[x]]
     case Any => Option[X]
 
+  @tailrec
   def first[X](x: X): First[X] = x match
     case x: None.type => None
     case x: Some[_] => first(x.get)

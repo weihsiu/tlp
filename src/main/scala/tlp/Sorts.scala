@@ -19,18 +19,18 @@ object Sorts:
       case true => A *: T
       case false => h *: Insert[A, t, LT]
 
-  val i0: Insert[1, (2, 3), IntLT] = (1, 2, 3)
-  val i1: Insert[2, (1, 3), IntLT] = (1, 2, 3)
-  val i2: Insert[3, (1, 2), IntLT] = (1, 2, 3)
-  val i3: Insert[1 *: EmptyTuple, ((2, 2), (3, 3, 3)), SizeLT] = (1 *: EmptyTuple, (2, 2), (3, 3, 3))
-  val i4: Insert[(2, 2), (1 *: EmptyTuple, (3, 3, 3)), SizeLT] = (1 *: EmptyTuple, (2, 2), (3, 3, 3))
-  val i5: Insert[(3, 3, 3), (1 *: EmptyTuple, (2, 2)), SizeLT] = (1 *: EmptyTuple, (2, 2), (3, 3, 3))
+  summon[Insert[1, (2, 3), IntLT] =:= (1, 2, 3)]
+  summon[Insert[2, (1, 3), IntLT] =:= (1, 2, 3)]
+  summon[Insert[3, (1, 2), IntLT] =:= (1, 2, 3)]
+  summon[Insert[1 *: EmptyTuple, ((2, 2), (3, 3, 3)), SizeLT] =:= (1 *: EmptyTuple, (2, 2), (3, 3, 3))]
+  summon[Insert[(2, 2), (1 *: EmptyTuple, (3, 3, 3)), SizeLT] =:= (1 *: EmptyTuple, (2, 2), (3, 3, 3))]
+  summon[Insert[(3, 3, 3), (1 *: EmptyTuple, (2, 2)), SizeLT] =:= (1 *: EmptyTuple, (2, 2), (3, 3, 3))]
 
   type Sort[T <: Tuple, LT[_, _] <: Boolean] <: Tuple = T match
     case EmptyTuple => EmptyTuple
     case h *: t => Insert[h, Sort[t, LT], LT]
 
-  val s0: Sort[(2, 1, 3), IntLT] = (1, 2, 3)
-  val s1: Sort[(3, 2, 1), IntLT] = (1, 2, 3)
-  val s2: Sort[((2, 2), 1 *: EmptyTuple, (3, 3, 3)), SizeLT] = (1 *: EmptyTuple, (2, 2), (3, 3, 3))
-  val s3: Sort[((3, 3, 3), (2, 2), 1 *: EmptyTuple), SizeLT] = (1 *: EmptyTuple, (2, 2), (3, 3, 3))
+  summon[Sort[(2, 1, 3), IntLT] =:= (1, 2, 3)]
+  summon[Sort[(3, 2, 1), IntLT] =:= (1, 2, 3)]
+  summon[Sort[((2, 2), 1 *: EmptyTuple, (3, 3, 3)), SizeLT] =:= (1 *: EmptyTuple, (2, 2), (3, 3, 3))]
+  summon[Sort[((3, 3, 3), (2, 2), 1 *: EmptyTuple), SizeLT] =:= (1 *: EmptyTuple, (2, 2), (3, 3, 3))]

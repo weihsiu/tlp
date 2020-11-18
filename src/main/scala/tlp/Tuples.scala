@@ -5,12 +5,6 @@ import scala.compiletime.ops.int._
 
 object Tuples:
 
-  case class User(name: String, age: Int)
-  val user1 = User("walter", 18)
-  val userT = Tuple.fromProductTyped(user1)
-  val user2 = User.tupled(userT)
-  assert(user1 == user2)
-
   type Id[A] = A
 
   type Triple = (Int, Char, Boolean)
