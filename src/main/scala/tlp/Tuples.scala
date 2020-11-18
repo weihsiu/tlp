@@ -21,16 +21,22 @@ object Tuples:
 
   summon[Map[Triple, Id] =:= Triple]
 
-  val t2: Map[Triple, Option] = (Some(1), None, Some(false))
+  val t2: Map[Triple, Option] = t1.map([t] => (x: t) => Some(x)) // (Some(1), Some('a'), Some(true))
 
   summon[Map[Triple, Option] =:= (Option[Int], Option[Char], Option[Boolean])]
 
   type Upgrade[T] = T match
     case Int => Double
     case Char => String
-    case _ => T
+    case Boolean => Boolean
 
-  val t3: Map[Triple, Upgrade] = (1.0, "a", false)
+  val upgrade: [t] => t => Upgrade[t] = new PolyFunction:
+    def apply[T](x: T): Upgrade[T] = x match
+      case x: Int => x.toDouble
+      case x: Char => x.toString
+      case x: Boolean => !x
+
+  val t3: Map[Triple, Upgrade] = t1.map(upgrade) // (1.0, "a", true)
 
   summon[Map[Triple, Upgrade] =:= (Double, String, Boolean)]
 

@@ -32,3 +32,30 @@ val user1 = User("walter", 18)
 val userT = Tuple.fromProductTyped(user1)
 val user2 = User.tupled(userT)
 assert(user1 == user2)
+
+val poly0: [t] => t => String = [t] => (x: t) => x match
+  case x: Int => "int"
+  case x: String => "string"
+  case _ => "unknown"
+
+type Switch[T] = T match
+  case Int => String
+  case String => Long
+  case _ => T
+
+val poly1: [t] => t => Switch[t] = new PolyFunction:
+  def apply[T](x: T): Switch[T] = x match
+    case x: Int => x.toString
+    case x: String => Integer.parseInt(x).toInt
+    case _ => x
+
+val poly2: [t] => t => Switch[t] = [t] => (x: t) => x match
+    case x: Int => x.toString
+    case x: String => Integer.parseInt(x).toInt
+    case _ => x
+
+poly1("123")
+poly1(123)
+
+poly(1)
+poly("df")
