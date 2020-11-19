@@ -24,14 +24,14 @@ object Firsts:
     case x: Any => Option(x)
 
   @main
-  def runFirsts(): Unit =
-    println(first((1, false, 'a')))
-    println(first("hello"))
-    println(first(""))
-    println(first(Array(1, 2, 3)))
-    println(first(Array.empty[Int]))
-    println(first(1 :: 2 :: 3 :: Nil))
-    println(first(Nil))
-    println(first(false))
+  def runFirsts(): Unit = 
+    println(first((1, false, 'a'))) // Some(1)
+    println(first("hello")) // Some('h')
+    println(first("")) // None
+    println(first(Array(1, 2, 3))) // Some(1)
+    println(first(Array.empty[Int])) // None
+    println(first(1 :: 2 :: 3 :: Nil)) // Some(1)
+    println(first(Nil)) // None
+    println(first(false)) // Some(false)
 
-    println(first(List(Array(("world", false)))))
+    println(first(List(Array(("world", false))))) // Some('w')
